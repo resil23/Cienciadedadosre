@@ -3,10 +3,15 @@ const url='https://raw.githubusercontent.com/silviosnjr/CienciaDeDados-CriandoGr
 async function vizualizarInformacoesGlobais() {
     const res = await fetch(url)
     const dados = await res.json()
+    const pessoasMundo = (dados.total_pessoas_mundo / 1e9)
+    const pessoasComAcessoAEducacao = (dados.total_pessoas_com_acesso_a_educacao / 1e9)
+    const horas = parseInt(dados.tempo_medio_dia_estudando)
+    const minutos = Math.round((dados.tempo_medio_dia_estudando - horas) * 60)
+    const pessoasComEducacaoSuperior = (dados.total_pessoas_com_educacao_superior / 1e9)
     console.log(dados)
     const paragrafo = document.createElement('p')
     paragrafo.classList.add('graficos-container__texto')
-    paragrafo.innerHTML = `Você sabia que o total de pessoas no mundo é de <span>${dados.total_pessoas_mundo}</span> de pessoas e que o  total de pessoas com acesso à educação é de <span>${dados.total_pessoas_com_acesso_a_educacao}</span>? O tempo médio gasto por dia estudando é de <span>${dados.tempo_medio_dia_estudando}</span> horas e o total de pessoas com educação superior é de <span>${dados.total_pessoas_com_educacao_superior}</span>.  Será que esses dados apontam para uma realidade de um mundo esclarecido e com facilidade de acesso à Educação?
+    paragrafo.innerHTML = `Você sabia que o total de pessoas no mundo é de <span>${pessoasMundo}</span> de pessoas e que o  total de pessoas com acesso à educação é de <span>${pessoasComAcessoAEducacao}</span>? O tempo médio gasto por dia estudando é de <span>${horas}</span> horas e <span>${minutos}</span> minutos e o total de pessoas com educação superior é de <span>${pessoasComEducacaoSuperior}</span>.  Será que esses dados apontam para uma realidade de um mundo esclarecido e com facilidade de acesso à Educação?
 `
     const container = document.getElementById('graficos-container')
     container.appendChild(paragrafo);
